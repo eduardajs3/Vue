@@ -19,9 +19,7 @@ class LogRepository {
         $this->data_hora = $this->datetime->format('Y-m-d H:i:s');
     }
 
-
     public function createLog($log) {
-        echo "passou aqui!";
         $acao = $log->getAcao();
         $produto_id = $log->getProduto();
         $userInsert = $log->getUserInsert();
@@ -37,7 +35,6 @@ class LogRepository {
         return $stmt->execute();
     }
 
-
     public function getAllLog() {
         $query = "SELECT * FROM $this->table";
         $stmt = $this->conn->prepare($query);
@@ -45,9 +42,5 @@ class LogRepository {
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-       
-
-       
-        
     
 }

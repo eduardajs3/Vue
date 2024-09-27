@@ -13,8 +13,7 @@ class Database {
     private $user='root';
     private $pass= 'root';
     private $charset = 'utf8mb4';
-    private $path = 'banco_de_dados.sqlite';
-
+   
     public function __construct() {
         
         $dsn = "mysql:host=$this->host;dbname=$this->db;charset$this->charset";
@@ -32,15 +31,4 @@ class Database {
         }
         return self::$instance->conn;
     }
-
-    //  public function conectarlite(){
-    //     try{
-    //         $pdo = new PDO("sqlite:$this->path");
-    //         return $pdo;
-    //     }catch (PDOException $e){
-    //         echo "Erro ao conectar:" . $e->getMessage();
-    //     }
-    //  }
-
-
 }

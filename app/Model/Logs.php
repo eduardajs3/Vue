@@ -4,7 +4,6 @@ namespace App\Backend\Model;
 use App\Backend\Database\Database;
 use PDO;
 
-
 class Logs {
         private $log_id;
         private $acao;
@@ -12,26 +11,20 @@ class Logs {
         private $produto_id;
         private $userInsert;
     
-    
-    
         public function __construct($acao, $data_hora, $produto_id, $userInsert) {
             $this->acao = $acao;
             $this->data_hora = $data_hora;
             $this->produto_id = $produto_id;
             $this->userInsert = $userInsert;
         }
-    
-        
-        
+
         public function getId() {
             return $this->log_id;
         }
         public function setId($log_id): self{ 
-    
             $this->log_id = $log_id;
             return $this;
         }
-
         public function getAcao() {
             return $this->acao;
         }

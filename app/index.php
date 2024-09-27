@@ -5,15 +5,16 @@ require_once "../vendor/autoload.php";
 
 header("Content-Type: application/json; charset=UTF-8");
 
+use App\Backend\Controller\LogController;
 use App\Backend\Controller\ProdutoController;
 use App\Backend\Model\Produto;
 use App\Backend\Repository\ProdutoRepository;
 use App\Backend\Repository\LogRepository;
 
-// $model = new Produto();
 $repositoryProduto = new ProdutoRepository();
 $controller = new ProdutoController($repositoryProduto);
-$logs = new LogRepository();
+$logRepository = new LogRepository();
+$logController = new LogController($logRepository);
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
@@ -26,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
-
+new LogController($logRepository);
 $resposta = null;
 
 switch($method){
@@ -37,13 +38,13 @@ switch($method){
                 $controller->read($id);
                 break;
             }
-            //so precisa no get
+            
             if($uri == "/produtos"){
                 $controller->read();
             }
 
             if($uri == "/logs"){
-                print_r($logs->getAllLog());
+                $logController->getAllLog();
             }
             
     break;

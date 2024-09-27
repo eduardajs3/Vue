@@ -20,7 +20,6 @@ class Produto{
         return $this->produto_id;
     }
     public function setProdutoId($produto_id): self{ 
-
         $this->produto_id = $produto_id;
         return $this;
     }
@@ -52,7 +51,6 @@ class Produto{
         $this->estoque = $estoque;
         return $this;
     }
-    
     public function getUserInsert(){
         return $this->userInsert;
     }

@@ -3,14 +3,13 @@ namespace App\Backend\Controller;
 
 use App\Backend\Model\Produto;
 use App\Backend\Repository\ProdutoRepository;
-
 class ProdutoController{
+    
     private $repository;
 
     public function __construct(ProdutoRepository $repository){
         $this->repository = $repository;
     }
-
     public function create($data) {
      
         if (!isset($data->nome,$data->descricao, $data->preco, $data->estoque,$data->userInsert)) {
@@ -19,14 +18,12 @@ class ProdutoController{
             return;
         }
     
-    
         if (strlen($data->nome) <= 3) {
             http_response_code(400);
             echo json_encode(["error" => "O nome deve ter mais de 3 caracteres."]);
             return;
         }
     
-        
         if ($data->preco <= 0) {
             http_response_code(400);
             echo json_encode(["error" => "O preço deve ser maior que 0."]);
@@ -45,19 +42,14 @@ class ProdutoController{
             echo json_encode(["error" => "Um produto com esse nome já existe."]);
             return;
         }
-    
-      
+         
         $produto = new Produto();
-        $produto
-                ->setNome($data->nome)
+        $produto->setNome($data->nome)
                 ->setDescricao($data->descricao)
                 ->setPreco($data->preco)
                 ->setEstoque($data->estoque)
                 ->setUserInsert($data->userInsert);
 
-
-    
-    
         if ($this->repository->insertProduto($produto)) {
             http_response_code(200);
             echo json_encode(["message" => "Produto criado com sucesso"]);
@@ -102,16 +94,15 @@ class ProdutoController{
         http_response_code($status);
         echo json_encode($result ?: ["message" => "Nenhum produto encontrado."]);
     }
-   
+
     public function update($id, $data) {
       
-        if (!isset($data->nome,$data->descricao, $data->preco, $data->estoque,$data->userInsert,$data->data_hora)) {
+        if (!isset($data->nome,$data->descricao, $data->preco, $data->estoque,$data->userInsert)) {
             http_response_code(400);
             echo json_encode(["error" => "Dados incompletos para atualização do produto."]);
             return;
         }
     
-        
         if (strlen($data->nome) <= 3) {
             http_response_code(400);
             echo json_encode(["error" => "O nome do produto deve ter mais de 3 caracteres."]);
@@ -130,17 +121,14 @@ class ProdutoController{
             return;
         }
     
-       
         $produto = new Produto();
         $produto->setProdutoId($id)
                 ->setNome($data->nome)
                 ->setDescricao($data->descricao)
                 ->setPreco($data->preco)
                 ->setEstoque($data->estoque)
-                ->setUserInsert($data->userInsert)
-                ->setData_hora($data->data_hora);
-    
-       
+                ->setUserInsert($data->userInsert);
+
         if ($this->repository->updateProduto($produto)) {
             http_response_code(200);
             echo json_encode(["message" => "Produto atualizado com sucesso"]);
