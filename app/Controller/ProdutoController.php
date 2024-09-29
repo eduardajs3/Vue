@@ -77,24 +77,40 @@ class ProdutoController{
         }
     }
 
-    public function read($id = null){
-        if($id){
-            $result =
-            $this->repository->getProdutoById($id);
-            unset($result['id']);
-            $status = $result ? 200 : 404;
-        }else{
-            $result = $this->repository->getAllProduto();
-            foreach ($result as $produto){
-                unset($produto['id']);
+    public function read($id = null) {
+        if ($id) {
+           
+            $result = $this->repository->getProdutoById($id);
+            if (is_array($result)) {
+               
+                unset($result['id']);
+                $status = 200;  
+            } else {
+                
+                $result = ["message" => "Produto não encontrado."];
+                $status = 404;
             }
-            unset ($produto);
-            $status = !empty($result) ? 200:404;
+        } else {
+            
+            $result = $this->repository->getAllProduto();
+            if (is_array($result) && !empty($result)) {
+                
+                foreach ($result as &$produto) {
+                    unset($produto['id']);
+                }
+                unset($produto); 
+                $status = 200;
+            } else {
+               
+                $result = ["message" => "Nenhum produto encontrado."];
+                $status = 404;
+            }
         }
+    
         http_response_code($status);
-        echo json_encode($result ?: ["message" => "Nenhum produto encontrado."]);
+    
+        echo json_encode($result);
     }
-
     public function update($id, $data) {
       
         if (!isset($data->nome,$data->descricao, $data->preco, $data->estoque,$data->userInsert)) {
