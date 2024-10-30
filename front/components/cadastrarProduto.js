@@ -24,19 +24,23 @@ export default {
       if (!this.produto.descricao) {
         this.erros.push("A descrição deve ser preenchida.");
       }
+
       if (!this.produto.preco && this.produto.preco !== 0) {
         this.erros.push("O preço deve ser preenchido.");
       } else if (this.produto.preco <= 0) {
         this.erros.push("O preço deve ser maior que 0.");
       }
+
       if (!this.produto.estoque && this.produto.estoque !== 0) { 
         this.erros.push("O estoque deve ser preenchido.");
       } else if (this.produto.estoque < 0) {
         this.erros.push("O estoque deve ser maior ou igual a 0.");
       }
+
       if (!this.produto.userInsert) {
         this.erros.push("O campo de usuário que insere o produto deve ser preenchido.");
       }
+      
       return this.erros.length === 0; 
     },
     cadastrarProduto() {
@@ -55,7 +59,7 @@ export default {
         })
         .catch(error => console.error('Erro ao cadastrar:', error));
       } else {
-        alert(this.erros.join("\n")); // Exibe as mensagens de erro
+        alert(this.erros.join("\n"));
       }
     }
   },

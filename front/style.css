@@ -7,7 +7,7 @@ input{
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
-    box-shadow: inset 6px 4px 5px 4px rgba(43, 248, 129, 0.1);
+    box-shadow: inset 6px 4px 5px 4px rgba(27, 16, 122, 0.1);
     border-radius: 12px;
 }
 button{
@@ -48,7 +48,7 @@ button{
   
   
   button:hover {
-    background-color: #45a049;
+    background-color: #1a1941;
   }
   
   
